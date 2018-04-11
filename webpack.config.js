@@ -2,12 +2,16 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
-    entry: './src/main.js',
+    entry: [
+        'webpack-hot-middleware/client?http://localhost:3000',
+        './src/main.js'
+    ],
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/',
         filename: 'build.js'
     },
+    mode: "development",
     module: {
         rules: [
             {
@@ -45,11 +49,6 @@ module.exports = {
         },
         extensions: ['*', '.js', '.vue', '.json']
     },
-    devServer: {
-        historyApiFallback: true,
-        noInfo: true,
-        overlay: true
-    },
     performance: {
         hints: false
     },
@@ -57,7 +56,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "index.html"
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ]
 }
 
