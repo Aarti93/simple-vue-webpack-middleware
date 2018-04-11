@@ -21,10 +21,8 @@ app.use(webpackDevMiddleware(compiler, {
     publicPath: webpack_config.output.publicPath,
     stats: { colors: true }
 }));
-app.use(webpackHotMiddleware(compiler, {
-    log: console.log,
-    path: '/__webpack_hmr',
-}));
+app.use(webpackHotMiddleware(compiler));
+
 app.use(express.static(DIST_DIR));
 //Serving the files in the dist folder
 app.get('/', function (req, res) {
